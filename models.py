@@ -156,10 +156,10 @@ class Log(LogEntry):
                                   )
 
     @classmethod
-    def get_log(cls,user=None,model=None,app=None,action=None,object_id=None,count=500):
+    def get_log(cls,user=None,model=None,app=None,action=None,obj=None,count=500):
         qs = cls.objects.all().order_by('-action_time')
-        if object_id is not None:
-            qs = qs.objects.filter(object_id=object_id)
+        if obj is not None:
+            qs = qs.objects.filter(obj=content_object,object_id=obj.pk)
         else:
             qs = qs.all()
         if user is not None:
