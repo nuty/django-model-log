@@ -176,7 +176,7 @@ class Log(LogEntry):
 
     def get_message(self):
         username = self.user.username
-        return render_to_string('common/log_msg.html',
+        return render_to_string('log_msg.html',
                                  {
                                  'obj': self,
                                  'username': username,
