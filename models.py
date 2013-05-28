@@ -42,6 +42,9 @@ class DirtyFieldsMixin(object):
         new_state = self._as_dict()
         return dict([(key, value) for key, value in self._original_state.iteritems() if value != new_state[key]])
 
+    def dirty_keys(self):
+        return self.get_dirty_fields().keys()
+
     def is_dirty(self):
         if not self.pk:
             return True
@@ -153,8 +156,12 @@ class Log(LogEntry):
                                   )
 
     @classmethod
-    def get_log(cls,user=None,model=None,app=None,action=None,count=500):
+    def get_log(cls,user=None,model=None,app=None,action=None,object_id=None,count=500):
         qs = cls.objects.all().order_by('-action_time')
+        if object_id is not None:
+            qs = qs.objects.filter(object_id=object_id)
+        else:
+            qs = qs.all()
         if user is not None:
             qs = qs.filter(user=user).all()
         else:
@@ -176,7 +183,7 @@ class Log(LogEntry):
 
     def get_message(self):
         username = self.user.username
-        return render_to_string('log_msg.html',
+        return render_to_string('common/log_msg.html',
                                  {
                                  'obj': self,
                                  'username': username,
