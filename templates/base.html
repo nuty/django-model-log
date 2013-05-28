@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{% block title %}
+<title>首页</title>
+{% endblock %}
+<link type="text/css" href="/static/css/public.css" rel="stylesheet" >
+{% block css %}
+{% endblock %}
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<script type="text/javascript" src="/static/js/calendar/WdatePicker.js"></script>
+<script type="text/javascript" src="/static/js/public.js"></script>
+<script type="text/javascript">
+/* eMar js*/
+    var _adwq = _adwq || [];
+    _adwq.push(['_setAccount', 'hl6hl']);
+    _adwq.push(['_setDomainName', '.wuxinghui.com']);
+    _adwq.push(['_trackPageview']);
+    (function() {
+        var adw = document.createElement('script');
+        adw.type = 'text/javascript'; 
+        adw.async = true;
+        adw.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://s') + '.emarbox.com/js/adw.js';
+        var s = document.getElementsByTagName('script')[0]; 
+        s.parentNode.insertBefore(adw, s);
+    })();
+</script>
+{% block js %}{% endblock %}
+<!--背景图片透明方法-->
+<script src="/static/js/iepng.js" type="text/javascript"></script>
+<!--插入图片透明方法-->
+<script type="text/javascript">
+   EvPNG.fix('div, ul, img, li, input, a,i,span');  //EvPNG.fix('包含透明PNG图片的标签'); 多个标签之间用英文逗号隔开。
+</script>
+</head>
+<body>
+<!--头部开始 -->
+<div class="ntopbox">
+	<div class="w960">
+    	<div class="nlogo fl"><a href="/"><img src="/static/img/nlogo.png"/></a></div>
+        <div class="nnavbox fl">
+        	<ul>
+		<li {% if cur_page == 'goal' %} {%else%}class="cur"{% endif %}><a href="/" class="sy">首页</a>|</li>
+                <li {% if cur_page == 'goal' %} class="cur"{% endif %}><a href="/goal/" class="ndd">目的地</a></li>
+            </ul>
+        </div>
+        <div class="ntopR fr">
+        	<ul>
+            	<li>欢迎 
+            	{% if request.session.level > 1 %}
+                    {% if request.session.level == 2%}
+                    <img src='/static/img/vip/gold-icon.png' border=0 title='金卡会员' > 
+                    {% elif request.session.level == 3%}
+                    <img src='/static/img/vip/platinum-icon.png' border=0 title='白金卡会员' > 
+                    {% elif request.session.level == 4%}
+                    <img src='/static/img/vip/diamond-icon.png' border=0 title='钻石卡会员' >
+                    {% endif %} 
+                {% endif %}
+                <a href="/ucenter/">{% if request.session.email %}
+                {{ request.session.email }}
+                {% else %}
+                {{ request.session.mobile }}
+                {% endif %}</a>
+                {% if not request.session.userid %}
+                [<a href="/login/">登录</a> / <a href="/register/">注册</a>]</li>
+                {%else%}
+                <a href="/logout/">退出</a>
+                <li><a href="/booking/list">我的订单{%if request.session.ordernum%}<!-- <span class="ico_hot_mini">{{ request.session.ordernum|safe }}<span> -->{%endif%}</span></span></a></li>
+                {%endif%}
+<!--                <li><a href="javascript:window.external.addFavorite('http://www.wuxinghui.com','五星汇')">收藏</a></li>--> 
+                 
+
+                 <li><a href="/vip/">五星汇俱乐部</a></li>
+
+                
+
+                 <!--<li><a href="javascript:void(0);" onclick="addfavorite()">收藏</a></li>-->
+            </ul>
+        </div>
+        <div class="teldiv">
+        	<span class="telbox"><img src="/static/img/19.jpg" width="19" height="19" />4008-158-688&nbsp;<span style="font-size:12px;">周一至周日 09:00-20:30</span></span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2402608191&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:2402608191:42" alt="给我发消息" title="给我发消息"></a>
+        </div>
+        <div class="moremudd" style='display:none'>
+            <div class="mddgaps">
+                <h2>热门目的地城市</h2>
+                <div class="hotcitymdd">
+                    <ul>
+                        <li class="cur"><a href="/goal/beijing/">北京</a></li>
+                        <li><a href="/goal/shanghai/">上海</a></li>
+                        <li><a href="/goal/hangzhou/">杭州</a></li>
+                        <li><a href="/goal/xiamen/">厦门</a></li>
+                        <li><a href="/goal/sanya/">三亚</a></li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+                <div class="mddgapsbox">
+                    <div class="mddgapslist">
+                        <p><span>A-F</span><a href="/goal/chengdu/">成都</a><a href="/goal/chongqing/">重庆</a><a href="/goal/changsha/">长沙</a><a href="/goal/dalian/">大连</a></p>
+                        <p><span>G-J</span><a href="/goal/guangzhou">广州</a><a href="/goal/haerbin/">哈尔滨</a></p>
+                        <p><span>K-N</span><a href="/goal/kunming/">昆明</a><a href="/goal/nanjing/">南京</a></p>
+                        <p><span>P-W</span><a href="/goal/qingdao/">青岛</a><a href="/goal/shenzhen/">深圳</a><a href="/goal/wuhan/">武汉</a></p>
+                        <p><span>X-Z</span><a href="/goal/xian/">西安</a><a href="/goal/zhengzhou/">郑州</a></p>
+                    </div>
+                </div>
+            </div>
+    	</div>
+  </div>
+</div>
+
+<!--头部结束 -->
+
+<!--内容开始 -->
+{% block content %}
+
+{% endblock %}
+<!--内容结束 -->
+
+<!--底部开始 -->
+<div class="footer">
+	<div class="w960">
+    <p>
+        <a href="/aboutus/" target="_blank">关于我们</a> | 
+        <a href="/contact/" target="_blank">联系我们</a> | 
+        <a href="/FAQ/" target="_blank">常见问题</a> | 
+        <a href="/zfhelp/" target="_blank">支付帮助</a> | 
+        <a href="/provisions/" target="_blank">法律声明</a> | 
+        <a href="/conceal/" target="_blank">隐私政策</a> | 
+        <a href="/friendship/" target="_blank">友情链接</a> |
+        <a href="{% url reports %}" target="_blank">媒体报道</a> 
+        <a href="http://news.wuxinghui.com" target="_blank" class='dispn'>五星汇资讯</a>
+    </p>
+        <p>
+
+            <script type="text/javascript" src="http://tajs.qq.com/stats?sId=24493271" charset="UTF-8"></script> 
+            <script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F7708418b490e83ac4f86d035fc2945af' type='text/javascript'%3E%3C/script%3E"));
+</script>Copyright © 2013 wuxinghui.com Inc. All Rights Reserved.    电信与信息服务业务经营许可证：京ICP证101090号    ICP备：京ICP备10217608号-1 </p>
+        <div class="pic"><img src="/static/img/f_12.jpg"><a href="http://www.bj.cyberpolice.cn/index.do" target="_blank"><img src="/static/img/f_110.jpg"></a>
+<!--可信网站图片LOGO安装开始-->
+<script src="http://kxlogo.knet.cn/seallogo.dll?sn=e13040311010039916tzxf000000&size=2"></script>
+<!--可信网站图片LOGO安装结束-->
+   </div>
+        {% block seoword %}{%endblock%}
+    </div>   
+</div>
+<!--底部结束 -->
+</body>
+</html>
