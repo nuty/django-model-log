@@ -1,7 +1,7 @@
 django-model-log
 ================
 
-a django model modify log app
+a simple django model modify log app
 
 referenced to django-dirtyfields app
 
