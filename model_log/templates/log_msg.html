@@ -1,0 +1,19 @@
+ <div class="control-group">
+	<div class="controls">
+		<span><code>用户</code></span>&nbsp&nbsp
+		<span><em><strong>{{ username }}</strong></em></span>&nbsp
+		<span>在</span>
+		<span>{{ obj.action_time|date:"Y年m月d号H时i分"}}</span>&nbsp&nbsp
+		{% if obj.change_message in actions %}
+			<span><strong>{{ obj.change_message|title }}</strong></span>&nbsp&nbsp
+			<span>{{ obj.cate_name }}</span>&nbsp&nbsp
+			<span><strong>{{ obj.object_repr|truncatechars:'31' }}</strong></span>
+		{% else %}
+			<span><strong>{{ obj.change_message|truncatechars:'50' }}</strong></span>
+		{% endif %}
+		{% if obj.message_extra != '' %}
+			<span><em><strong>编辑的字段有</strong></em></span>&nbsp
+			<span>{{ obj.message_extra }}</span>&nbsp&nbsp
+		{% endif %}
+	</div>
+</div>
