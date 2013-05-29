@@ -7,9 +7,11 @@ from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.contrib import admin
 from django.db import models
+
 from django.db.models.signals import post_save
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text, smart_unicode
+from django.utils.translation import ugettext_lazy as _
 
 from .helpers import ACTION_CHOICE
 
@@ -22,7 +24,7 @@ class Log(LogEntry):
     DELETION = 3
     content_object = generic.GenericForeignKey('content_type', 'object_id')
     message_extra = models.CharField(
-        max_length=400, null=True, blank=True, verbose_name=u'附加信息')
+        max_length=400, null=True, blank=True, verbose_name=_(u'extra_message'))
 
     @classmethod
     def _get_content_types(cls,app=None,model=None):
@@ -117,7 +119,7 @@ class Log(LogEntry):
     def get_log(cls,user=None,model=None,app=None,action=None,obj=None,count=500):
         qs = cls.objects.all().order_by('-action_time')
         if obj is not None:
-            qs = qs.objects.filter(obj=content_object)
+            qs = qs.objects.filter(content_object=obj)
         else:
             qs = qs.all()
         if user is not None:
@@ -141,7 +143,7 @@ class Log(LogEntry):
 
     def get_message(self):
         username = self.user.username
-        return render_to_string('common/log_msg.html',
+        return render_to_string('log_msg.html',
                                  {
                                  'obj': self,
                                  'username': username,
