@@ -1,14 +1,10 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
-
+import logging
 from django.contrib.admin.models import LogEntry
-from django.contrib.auth.models import User
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
-from django.contrib import admin
 from django.db import models
 
-from django.db.models.signals import post_save
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text, smart_unicode
 from django.utils.translation import ugettext_lazy as _
@@ -137,7 +133,7 @@ class Log(LogEntry):
     def cate_name(self):
         try:
             name = self.content_object._meta.verbose_name.title()
-        except Exception as e:
+        except:
             name = self.content_type.name
         return name
 

@@ -21,7 +21,7 @@ class DirtyFieldsMixin(object):
         dirties = self.get_dirty_fields().keys()
         lk = []
         for k in dirties:
-            vebose = self._meta.get_field_by_name(k)[0].verbose_name
+            verbose = self._meta.get_field_by_name(k)[0].verbose_name
             lk.append(verbose)
         return lk
 
