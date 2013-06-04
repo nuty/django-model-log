@@ -11,9 +11,11 @@
 		{% else %}
 			<span><strong>{{ obj.change_message|truncatechars:'50' }}</strong></span>
 		{% endif %}
-		{% if obj.message_extra != '' %}
-			<span><em><strong>编辑的字段有</strong></em></span>&nbsp
-			<span>{{ obj.message_extra }}</span>&nbsp&nbsp
+		{% if obj.action == 2 and obj.use_dirty %}
+			{% if obj.message_extra != '' %}
+				<span><em><strong>编辑的字段有</strong></em></span>&nbsp
+				<span>{{ obj.message_extra }}</span>&nbsp&nbsp
+			{% endif %}
 		{% endif %}
 	</div>
 </div>

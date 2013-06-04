@@ -32,6 +32,15 @@ class DirtyFieldsMixin(object):
     def dirty_keys(self):
         return self.get_dirty_fields().keys()
 
+    def use_dirty(self):
+        try:
+            keys = self.get_dirty_fields().keys()
+        except:
+            keys = None
+        if keys is None:
+            return False
+        return True
+
     def is_dirty(self):
         if not self.pk:
             return True
