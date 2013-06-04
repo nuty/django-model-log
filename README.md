@@ -7,6 +7,13 @@ referenced to django-dirtyfields app
 
 https://github.com/smn/django-dirtyfields
 
+INSTALLED_APPS += (
+    .........
+    'django.contrib.admin',
+    'model_log'
+)
+
+
     class:
         Log
     属性：
@@ -36,7 +43,7 @@ https://github.com/smn/django-dirtyfields
            request参数 和 user参数两者必须填写一项。
 
          使用实例：
-           from common.models import Log
+           from model_log.models import Log
            from app.food.models import Food
            food = Food()
            Log.set_log(request,food,Log.ADDITION)
@@ -74,7 +81,7 @@ https://github.com/smn/django-dirtyfields
                获取聚合记录时请把参数放到列表里
             
             使用实例：
-               from app.common.models import Log
+               from app.model_log.models import Log
                logs = Log.get_log(user=request.user,app='food',action=Log.ADDITION,count=1000)    ## 获得1000条ad app 属于当前user的 添加操作记录 (不写参数会获得所有的日志)
                logs = Log.get_log(app='food')   ##获得 hotel app的所有操作日志
                logs = Log.get_log(app='food',model='Info')   ##获得 app hotel 的Info模型的操作日志
