@@ -7,11 +7,11 @@ referenced to django-dirtyfields app
 
 https://github.com/smn/django-dirtyfields
 
-INSTALLED_APPS += (
-    .........
-    'django.contrib.admin',
-    'model_log'
-)
+    INSTALLED_APPS += (     
+        .........       
+        'django.contrib.admin',    
+        'model_log'     
+    )       
 
 
     class:
