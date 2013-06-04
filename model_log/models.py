@@ -46,10 +46,8 @@ class Log(LogEntry):
         old_value = instance.__class__._default_manager.\
             filter(pk=instance.pk).values(field.name).get()[field.name]
         new_value = getattr(instance, field.name)
-        if new_value == old_value:
-            return False
-        else:
-            return True
+        return new_value == old_value
+
 
     @classmethod
     def _get_obj_fields(cls, instance):

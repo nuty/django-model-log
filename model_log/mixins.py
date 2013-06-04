@@ -46,6 +46,5 @@ class DirtyFieldsMixin(object):
             return True
         return {} != self.get_dirty_fields()
 
-
 def reset_state(sender, instance, **kwargs):
     instance._original_state = instance._as_dict()
