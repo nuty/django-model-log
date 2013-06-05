@@ -25,5 +25,4 @@ setup(
         'Programming Language :: Python',
         'Framework :: Django',
     ],
-    # test_suite='modelhistory.tests.runtests.runtests'
 )
