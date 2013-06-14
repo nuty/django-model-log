@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import logging
 from django.contrib.admin.models import LogEntry
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
@@ -75,17 +74,14 @@ class Log(LogEntry):
     def set_log(cls,request,obj,action,user=None,change_message=None):
         if (request or user) is None:
             raise ValueError('you must take argument request or user')
-            logging.error(ValueError('you must take argument request or user'))
         if request:
             user = request.user
         else:
             user = user
         if obj is None:
             raise TypeError('require model instance argument obj')
-            logging.error(TypeError('require model instance argument obj'))
         if action is None:
             raise TypeError('require a integer argument action')
-            logging.error(ValueError('require a integer argument action'))
         if change_message is None:
             msg = dict(cls.ACTION_CHOICE).get(action, '')
             if action == cls.CHANGE:
