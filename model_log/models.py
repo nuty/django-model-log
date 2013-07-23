@@ -26,16 +26,14 @@ class Log(LogEntry):
         ct = ContentType.objects.all()
         if app is None:
             ct = ct.all()
-        elif isinstance(app, list):
-            ct = ct.filter(app_label__in=app)
         else:
-            ct = ct.filter(app_label=app)
+            app = app.split(',')
+            ct = ct.filter(app_label__in=app)
         if model is None:
             ct = ct.all()
-        elif isinstance(model, list):
-            ct = ct.filter(model__in=model)
         else:
-            ct = ct.filter(model=model)
+            model = model.split(',')
+            ct = ct.filter(model__in=model)
         return ct
 
     @classmethod
