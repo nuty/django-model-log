@@ -1,22 +1,12 @@
 django-model-log
 ================
 
-a simple django model modify log app
+django admin log wrapper
 
-referenced to django-dirtyfields app
+INSTALLED_APPS += (
+.........
+    'django.contrib.admin',
+    'model_log'
+)
 
-https://github.com/smn/django-dirtyfields
-
-
-INSTALLED_APPS += (     
-.........       
-    'django.contrib.admin',    
-    'model_log'     
-) 
-
-./manage.py syncdb 
-
-
-
-
-
+./manage.py syncdb
