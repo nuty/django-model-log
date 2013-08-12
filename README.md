@@ -3,6 +3,7 @@ django-model-log
 
 django admin log wrapper
 
+
 INSTALLED_APPS += (
 .........
     'django.contrib.admin',
