@@ -92,7 +92,10 @@ class Log(LogEntry):
         else:
             msg = change_message
             message_extra = ''
-        object_repr = force_text(obj)
+        try:
+            object_repr = force_text(obj)
+        except:
+            object_repr = 'object_repr'
         return cls.objects.create(user=user,
                                   content_type=ContentType.objects.get_for_model(
                                       obj),
