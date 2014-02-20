@@ -10,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from .helpers import ACTION_CHOICE
 
+
 class Log(LogEntry):
 
     ACTION_CHOICE = ACTION_CHOICE
@@ -22,7 +23,7 @@ class Log(LogEntry):
         max_length=400, null=True, blank=True, verbose_name=_(u'extra_message'))
 
     @classmethod
-    def _get_content_types(cls,app=None,model=None):
+    def _get_content_types(cls, app=None, model=None):
         ct = ContentType.objects.all()
         if app is None:
             ct = ct.all()
@@ -42,7 +43,6 @@ class Log(LogEntry):
             filter(pk=instance.pk).values(field.name).get()[field.name]
         new_value = getattr(instance, field.name)
         return new_value == old_value
-
 
     @classmethod
     def _get_obj_fields(cls, instance):
@@ -67,7 +67,7 @@ class Log(LogEntry):
         pass
 
     @classmethod
-    def set_log(cls,request,obj,action,user=None,change_message=None):
+    def set_log(cls, request, obj, action, user=None, change_message=None):
         if (request or user) is None:
             raise ValueError('you must take argument request or user')
         if request:
@@ -105,7 +105,8 @@ class Log(LogEntry):
                                   )
 
     @classmethod
-    def get_log(cls,user=None,model=None,app=None,action=None,pk=None,obj=None,count=500):
+    def get_log(cls, user=None, model=None, app=None, action=None, id=None, obj=None, count=500):
+
         qs = cls.objects.all().order_by('-action_time')
         if obj is not None:
             qs = qs.filter(content_object=obj)
@@ -116,11 +117,21 @@ class Log(LogEntry):
         else:
             qs = qs.all()
         cts = cls._get_content_types(model=model, app=app)
+
         qs = qs.filter(content_type__in=cts)
+        if id is not None:
+            model = models.get_model(app, model)
+            contentype = ContentType.objects.get_for_model(model).id
+            qs = qs.filter(object_id=id, content_type__id__exact=contentype).select_related(
+            ).order_by('-action_time')
+        else:
+            qs = qs.all()
+
         if action is not None:
             qs = qs.filter(action_flag=action)
         else:
             qs = qs.all()
+        
         return qs.all()[:count]
 
     def cate_name(self):
@@ -133,8 +144,8 @@ class Log(LogEntry):
     def get_message(self):
         username = self.user.username
         return render_to_string('log_msg.html',
-                                 {
-                                 'obj': self,
-                                 'username': username,
-                                 'actions': dict(Log.ACTION_CHOICE).values()
-                                 })
+                                {
+                                    'obj': self,
+                                    'username': username,
+                                    'actions': dict(Log.ACTION_CHOICE).values()
+                                })
