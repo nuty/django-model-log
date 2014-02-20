@@ -27,13 +27,11 @@ class Log(LogEntry):
         if app is None:
             ct = ct.all()
         else:
-            app = app.split(',')
-            ct = ct.filter(app_label__in=app)
+            ct = ct.filter(app_label__in=app.split(','))
         if model is None:
             ct = ct.all()
         else:
-            model = model.split(',')
-            ct = ct.filter(model__in=model)
+            ct = ct.filter(model__in=model.split(','))
         return ct
 
     @classmethod
@@ -107,7 +105,7 @@ class Log(LogEntry):
                                   )
 
     @classmethod
-    def get_log(cls,user=None,model=None,app=None,action=None,obj=None,count=500):
+    def get_log(cls,user=None,model=None,app=None,action=None,pk=None,obj=None,count=500):
         qs = cls.objects.all().order_by('-action_time')
         if obj is not None:
             qs = qs.filter(content_object=obj)

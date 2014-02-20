@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db.models.signals import post_save
 
-##########
+
 class DirtyFieldsMixin(object):
 
     def __init__(self, *args, **kwargs):
@@ -45,6 +45,7 @@ class DirtyFieldsMixin(object):
         if not self.pk:
             return True
         return {} != self.get_dirty_fields()
+
 
 def reset_state(sender, instance, **kwargs):
     instance._original_state = instance._as_dict()
