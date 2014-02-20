@@ -119,10 +119,10 @@ class Log(LogEntry):
         cts = cls._get_content_types(model=model, app=app)
 
         qs = qs.filter(content_type__in=cts)
-        if id is not None:
+        if (id and model and app) is not None:
             model = models.get_model(app, model)
             contentype = ContentType.objects.get_for_model(model).id
-            qs = qs.filter(object_id=id, content_type__id__exact=contentype).select_related(
+            qs =cls.objects.filter(object_id=id, content_type__id__exact=contentype).select_related(
             ).order_by('-action_time')
         else:
             qs = qs.all()
